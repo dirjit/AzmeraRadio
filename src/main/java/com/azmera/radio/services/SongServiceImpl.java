@@ -26,10 +26,10 @@ public class SongServiceImpl implements SongService{
 	public void addSongs(String folder) {		 
 	 	try {
 			List<Song> songs = parser.parseMetadata(dirParser.walk(folder));
-			for(Song song: songs) {
-			songRepository.save(song);
-			System.out.println(song);
-			}
+			//for(Song song: songs) {
+			songRepository.save(songs);
+			//System.out.println(song);
+			//}
 		} catch (IOException e) {
 			System.out.println("Error when parsing");
 		}
