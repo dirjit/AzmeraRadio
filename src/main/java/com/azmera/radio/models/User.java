@@ -1,6 +1,6 @@
 package com.azmera.radio.models;
 
-import java.util.List;
+import javax.persistence.GeneratedValue;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,15 +9,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
 	@Id
-	private Long userId;
+	@GeneratedValue
+	private String userId;
 	private String email;
 	private String userName;
 	private String phoneNumber;
-	private List<PlayList> playLists;
-	public Long getUserId() {
+	String[] favoriteArtists;
+	String[] favoriteAlbums;
+	String[] favoriteGenres;
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(Long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public String getEmail() {
@@ -38,18 +41,31 @@ public class User {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public List<PlayList> getPlayLists() {
-		return playLists;
+	public String[] getFavoriteArtists() {
+		return favoriteArtists;
 	}
-	public void setPlayLists(List<PlayList> playLists) {
-		this.playLists = playLists;
+	public void setFavoriteArtists(String[] favoriteArtists) {
+		this.favoriteArtists = favoriteArtists;
+	}
+	public String[] getFavoriteAlbums() {
+		return favoriteAlbums;
+	}
+	public void setFavoriteAlbums(String[] favoriteAlbums) {
+		this.favoriteAlbums = favoriteAlbums;
+	}
+	public String[] getFavoriteGenres() {
+		return favoriteGenres;
+	}
+	public void setFavoriteGenres(String[] favoriteGenres) {
+		this.favoriteGenres = favoriteGenres;
 	}
 	@Override
 	public String toString() {
-		return "UserPlayList [email=" + email + ", userName=" + userName
-				+ ", phoneNumber=" + phoneNumber + ", playLists=" + playLists
-				+ "]";
-	} 
+		return "User [email=" + email + ", userName=" + userName
+				+ ", phoneNumber=" + phoneNumber + ", favoriteArtists="
+				+ favoriteArtists + ", favoriteAlbums=" + favoriteAlbums
+				+ ", favoriteGenres=" + favoriteGenres + "]";
+	}
 	
-	
+		
 }

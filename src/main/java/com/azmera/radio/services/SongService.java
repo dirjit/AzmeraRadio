@@ -14,4 +14,10 @@ public interface SongService {
 	
 	public List<Song> getSongsByGenre(String genre);
 	
+	public List<Song> getAll();
+	
+/*	public List<String> getTopFavoritedAlbums();
+	
+	public List<String> getTopFavoritedArtists();*/
+	
 }

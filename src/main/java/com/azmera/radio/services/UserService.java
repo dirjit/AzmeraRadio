@@ -7,14 +7,20 @@ import com.azmera.radio.models.User;
 
 public interface UserService {
 	
-	List<User> getUserPlayListByEmail(String email);
+	User getUserByEmail(String email);
 	
-	List<User> getUserPlayListByUserName(String userName);
+	User getUserByUserName(String userName);
 	
-	List<User> getUserPlayListByPhoneNumber(String phoneNumber);
+	User getUserByPhoneNumber(String phoneNumber);
 	
-	List<Song> getUserPlayListByPlayListName(String playlistName);
+	List<Song> getSongsByArtist(String artistName);
 	
-	void save(Iterable<User> playList);
+	List<Song> getSongsByAlbum(String albumName);
+	
+	List<Song> getSongsByGenre(String genre);
+	
+	void save(User playList);
+
+	//List<Song> getSongsFromPlayList(String playlistName, String playListType);
 
 }

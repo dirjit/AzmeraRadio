@@ -1,7 +1,5 @@
 package com.azmera.radio.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,34 +14,49 @@ import com.azmera.radio.services.UserService;
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
-	
+
 	@Autowired
 	UserService userService;
-	
-	@RequestMapping(value="/addplayList", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void save(@RequestBody List<User> playList) {
-		userService.save(playList);
+
+	@RequestMapping(value ="/{user}/addplaylist", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void save(@RequestBody User user) {
+		userService.save(user);
+	}
+
+	@RequestMapping(value ="/adduser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void createUser(@RequestBody User user) {
+		userService.save(user);
 	}
 	
-	@RequestMapping(value="/playlists/{playlist}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<User> getUserPlayListByEmail(@RequestParam("email") String email){
-		return userService.getUserPlayListByEmail(email);
+	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public User getUserPlayListByEmail(
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "phone", required = false) String phoneNumber) {
+		User user;
+		if (email == null) {
+			user = userService.getUserByPhoneNumber(phoneNumber);
+		} else {
+			user = userService.getUserByEmail(email);
+		}
+		return user;
 	}
-	
-	/*@RequestMapping(value="/playlist", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<UserPlayList> getUserPlayListByUserName(@RequestParam("userName") String userName){
-		return userService.getUserPlayListByUserName(userName);
+
+/*	@RequestMapping(value = "/{user}/playlist/album/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Song> getSongsByAlbum(
+			@PathVariable("name") String albumName) {
+		return userService.getSongsByAlbum(albumName);
 	}
-	
-	@RequestMapping(value="/playlist", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<UserPlayList> getUserPlayListByPhoneNumber(@RequestParam("phoneNumber") String phoneNumber){
-		return userService.getUserPlayListByPhoneNumber(phoneNumber);
+
+	@RequestMapping(value = "/{user}/playlist/artist/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Song> getSongsByArtist(
+			@PathVariable("name") String artistName) {
+		return userService.getSongsByArtist(artistName);
 	}
-	@RequestMapping(value="/playlist", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<Song> getUserPlayListByPlayListName(@RequestParam("playListName") String playlistName){
-		return userService.getUserPlayListByPlayListName(playlistName);
+
+	@RequestMapping(value = "/{user}/playlist/genre/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Song> getSongsByGenre(
+			@PathVariable("name") String genre) {
+		return userService.getSongsByGenre(genre);
 	}*/
-	
-	
 
 }

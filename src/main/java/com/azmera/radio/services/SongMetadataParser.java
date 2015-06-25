@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +35,13 @@ public class SongMetadataParser {
 	
 	public List<Song> parseMetadata(List<String> audioFileLoc) throws IOException {
 		try {
+
 			songs = new ArrayList<>();
 			for(String path: audioFileLoc) {
 				Song song = new Song();
 				file = new File(path);
 				input = new FileInputStream(file);
+				
 				handler = new DefaultHandler();
 				metadata = new Metadata();
 				parser = new Mp3Parser();
@@ -50,7 +54,8 @@ public class SongMetadataParser {
 					song.setGenre(metadata.get("xmpDM:genre"));
 					song.setAlbum(metadata.get("xmpDM:album"));
 					song.setUrl(path);
-					System.out.println(song);
+					String duration =  String.format("%.2f",(Float.valueOf(metadata.get("xmpDM:duration")) / 1000/60));
+					song.setLenth(Float.valueOf(duration));
 				}catch(NullPointerException e) {
 					System.out.println("there was null value");
 				}
@@ -59,8 +64,7 @@ public class SongMetadataParser {
 			
 		}catch(FileNotFoundException | SAXException | TikaException e) {
 			e.printStackTrace();
-		}
-		System.out.println(songs);
+		} 
 		return songs;
 	}
 }

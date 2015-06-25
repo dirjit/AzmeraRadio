@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.azmera.radio.models.Song;
+import com.azmera.radio.repositories.MostFavoritedRepository;
 import com.azmera.radio.repositories.SongRepository;
 
 @Service
@@ -15,6 +16,9 @@ public class SongServiceImpl implements SongService{
 	
 	@Autowired
 	SongRepository songRepository;
+	
+	@Autowired
+	MostFavoritedRepository favoritedRepository;
 	
 	@Autowired
 	SongMetadataParser parser;
@@ -49,6 +53,21 @@ public class SongServiceImpl implements SongService{
 	public List<Song> getSongsByGenre(String genre) {
 		return songRepository.getSongsByGenre(genre);
 	}
+
+	@Override
+	public List<Song> getAll() {
+		return songRepository.findAll();
+	}
+	
+/*	@Override
+	public List<String> getTopFavoritedAlbums(){
+		return favoritedRepository.getTop10Albums();
+	}
+	
+	@Override
+	public List<String> getTopFavoritedArtists(){
+		return favoritedRepository.getTop10Artists();
+	}*/
 
 	
 }

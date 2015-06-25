@@ -1,7 +1,5 @@
 package com.azmera.radio.models;
 
-import javax.persistence.GeneratedValue;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,7 +11,7 @@ public class Song {
 	private long songId;*/
 	private String url;
 	private String title;
-	private long lenth;
+	private double lenth;
 	private String genre;
 	private String language;
 	private String country;
@@ -32,10 +30,10 @@ public class Song {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public long getLenth() {
+	public double getLenth() {
 		return lenth;
 	}
-	public void setLenth(long lenth) {
+	public void setLenth(double lenth) {
 		this.lenth = lenth;
 	}
 	public String getGenre() {
